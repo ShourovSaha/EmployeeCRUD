@@ -1,0 +1,109 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<div ng-app="ProductModule">
+    <div ng-controller="ProductContoller">
+        <div class="panel panel-body" >
+            <h5>{{errorMsg}}</h5>
+            <h2>{{successMsg}}</h2>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="panel panel-default">
+                    <table class="table table-bordered">
+                        <tr>
+                            <td>
+                                <div class="form-group">
+                                    <label>Product Name</label>
+                                    <input type="text" ng-model="product.Name" name="pName" class="form-control" />
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="form-group">
+                                    <label>Product Price</label>
+                                    <input type="number" ng-model="product.Price" name="pPrice" class="form-control" />
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="form-group">
+                                    <label>Product Category</label>
+                                    <input type="number" ng-model="product.ProductCatagoryId" name="pPrice" class="form-control" />
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <button type="button" ng-disabled="product.$invalid" class="btn btn-primary">Add</button>
+                                <button type="button" ng-click="UpdateProduct(product)" ng-disabled="product.$invalid" class="btn btn-warning">Update</button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <table class="table table-bordered">
+                    <tr>
+                        <td>ID:</td>
+                        <td>{{product.Id}}</td>
+                    </tr>
+                    <tr>
+                        <td>Name:</td>
+                        <td>{{product.Name}}</td>
+                    </tr>
+                    <tr>
+                        <td>Price:</td>
+                        <td>{{product.Price}}</td>
+                    </tr>
+                    <tr>
+                        <td>Catagory:</td>
+                        <td>{{product.ProductCatagoryId}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <br /><br />
+
+        <h4 class="text-center">All Products</h4>
+        <input type="checkbox" ng-model="hideCategory"/> Hide Category
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Product Name</th>
+                    <th>Price</th>
+                    <th ng-hide="hideCategory">Catagoty</th>
+                    <th>
+                        <input type="text" ng-model="searchProductByName.Name" placeholder="Product Name" class="form-control"/>
+                    </th>
+                    
+                </tr>
+            </thead>
+            <tbody @*data-ng-init="GetAllProduct()"*@>
+                <tr ng-repeat="product in productList | filter:searchProductByName">
+                    <td>{{product.Id}}</td>
+                    <td>{{product.Name}}</td>
+                    <td>{{product.Price}}</td>
+                    <td ng-hide="hideCategory">{{product.ProductCatagoryId}}</td>
+                    <td>
+                        <button type="button" class="btn btn-primary" ng-click="GetProductDetails(product.Id)">Details</button> |
+                        <button type="button" class="btn btn-warning" ng-click="GetProductDetails(product.Id)">Edit</button> |
+                        <button type="button" class="btn btn-danger" ng-click="">Delete</button> 
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div>
+
+    </div>
+</div>
+<script src="~/Scripts/angular.js"></script>
+<script src="~/Scripts/CustomJs/Controllers/ProductJs.js"></script>
